@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging;
+using WatchPortalFunction;
 
 public class WatchFunctionUnitTests
 {
@@ -22,10 +24,21 @@ public class WatchFunctionUnitTests
                 }
             );
 
-        var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
+        //var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
-        var response = WatchPortalFunction.WatchInfo.Run(request, logger);
-        response.Wait();
+        //var response = WatchPortalFunction.WatchInfo.Run(request, logger);
+        //response.Wait();
+
+        ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        });
+
+        ILogger<WatchInfo> logger = loggerFactory.CreateLogger<WatchInfo>();
+
+        WatchInfo watchFunc = new WatchInfo(logger);
+        var response = watchFunc.Run(request);
+
 
         // Check that the response is an "OK" response
         Assert.IsAssignableFrom<OkObjectResult>(response.Result);
@@ -43,10 +56,20 @@ public class WatchFunctionUnitTests
         var httpContext = new DefaultHttpContext();
         var request = httpContext.Request;
 
-        var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
+        //var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
-        var response = WatchPortalFunction.WatchInfo.Run(request, logger);
-        response.Wait();
+        //var response = WatchPortalFunction.WatchInfo.Run(request, logger);
+        //response.Wait();
+
+        ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        });
+
+        ILogger<WatchInfo> logger = loggerFactory.CreateLogger<WatchInfo>();
+
+        WatchInfo watchFunc = new WatchInfo(logger);
+        var response = watchFunc.Run(request);
 
         // Check that the response is an "Bad" response
         Assert.IsAssignableFrom<BadRequestObjectResult>(response.Result);
@@ -70,10 +93,20 @@ public class WatchFunctionUnitTests
                 }
             );
 
-        var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
+        //var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
-        var response = WatchPortalFunction.WatchInfo.Run(request, logger);
-        response.Wait();
+        //var response = WatchPortalFunction.WatchInfo.Run(request, logger);
+        //response.Wait();
+
+        ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        });
+
+        ILogger<WatchInfo> logger = loggerFactory.CreateLogger<WatchInfo>();
+
+        WatchInfo watchFunc = new WatchInfo(logger);
+        var response = watchFunc.Run(request);
 
         // Check that the response is an "Bad" response
         Assert.IsAssignableFrom<BadRequestObjectResult>(response.Result);

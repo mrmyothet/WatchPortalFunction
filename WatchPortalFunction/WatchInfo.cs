@@ -11,15 +11,15 @@ namespace WatchPortalFunction
 
         public WatchInfo(ILogger<WatchInfo> logger)
         {
-            _logger = logger;
+             _logger = logger;
         }
 
         [Function("WatchInfo")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             // Retrieve the model id from the query string
             string model = req.Query["model"];
